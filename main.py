@@ -38,7 +38,7 @@ def validate_row(row, index):
 
   if row.iloc[2].strip() not in ['START', 'END']:
     print(
-        f'Error on line {index+1} of the csv file: "{row.iloc[1]}" is not a "START" or "END" process. Actual value: {row.iloc[2]}. Skip this row.')
+        f'Error on line {index+1} of the csv file: "{row.iloc[2]}" is not a valid process state. Skip this row.')
     return False
 
   try:
@@ -60,7 +60,7 @@ def process_data(data_log):
       continue
     if not processes.get(row.iloc[3]):
       processes[row.iloc[3]] = {}
-    processes[row.iloc[3]][row.iloc[2].strip()] = row.iloc[0]  # Add "START" or "END" process time for the PID
+    processes[row.iloc[3]][row.iloc[2].strip()] = row.iloc[0]  # Add "START" or "END" timestamp for the PID
     if not processes[row.iloc[3]].get('description'):
       processes[row.iloc[3]]['description'] = row.iloc[1]
   for pid in skipping_list:
@@ -74,14 +74,14 @@ def write_output(processes, output_file_name):
   with open(output_file_name, 'w') as f:
     for pid, process_dct in processes.items():
       if not process_dct.get('START'):
-        f.write(f'The "{process_dct["description"]}" with PID {pid} hasn\'t started yet.\n')
+        f.write(f'The process {pid} hasn\'t started yet.\n')
       elif not process_dct.get('END'):
-        f.write(f'The "{process_dct["description"]}" with PID {pid} hasn\'t finished yet.\n')
+        f.write(f'The process {pid} hasn\'t finished yet.\n')
       else:
         END_TIME = datetime.strptime(process_dct['END'], '%H:%M:%S')
         START_TIME = datetime.strptime(process_dct['START'], '%H:%M:%S')
         if END_TIME < START_TIME:
-          f.write(f'The process {pid} has the "END" process before the "START" process.\n')
+          f.write(f'The process {pid} has the end time before the start time.\n')
         elif END_TIME - START_TIME > timedelta(minutes=10):
           f.write(f'Error: The process {pid} took more than 10 minutes to finish. Actual time: {END_TIME - START_TIME}.\n')
         elif timedelta(minutes=5) < END_TIME - START_TIME < timedelta(minutes=10):

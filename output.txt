@@ -13,9 +13,9 @@ Error: The process 22003 took more than 10 minutes to finish. Actual time: 0:11:
 Warning: The process 99672 took more than 5 minutes to finish. Actual time: 0:05:13.
 Warning: The process 86716 took more than 5 minutes to finish. Actual time: 0:05:34.
 Error: The process 52532 took more than 10 minutes to finish. Actual time: 0:13:53.
-The "scheduled task 333" with PID 72029 hasn't finished yet.
+The process 72029 hasn't finished yet.
 Warning: The process 98746 took more than 5 minutes to finish. Actual time: 0:07:17.
 Error: The process 23703 took more than 10 minutes to finish. Actual time: 0:13:26.
 Error: The process 62401 took more than 10 minutes to finish. Actual time: 0:10:24.
 Warning: The process 24482 took more than 5 minutes to finish. Actual time: 0:08:36.
-The "scheduled task 016" with PID 72897 hasn't finished yet.
+The process 72897 hasn't finished yet.
